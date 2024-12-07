@@ -1,5 +1,4 @@
-﻿using LinkDev.Talabat.Core.Domain.Common;
-
+﻿
 namespace LinkDev.Talabat.Core.Domain.Entities.Product
 {
     public class Product : BaseEntity<int>

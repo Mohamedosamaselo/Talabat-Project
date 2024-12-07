@@ -1,6 +1,7 @@
-﻿namespace LinkDev.Talabat.Core.Domain.Entities.Product
+﻿
+namespace LinkDev.Talabat.Core.Domain.Entities.Product
 {
-    public class ProductCategory
+    public class ProductCategory : BaseEntity<int> 
     {
         public required string Name { get; set; }
 

@@ -16,17 +16,16 @@ namespace LinkDev.Talabat.Infrastructure.Persistence._Data.Configurations.Produc
 
             builder.Property(p => p.Price).HasColumnType("decimal(9,2)");
 
-            //RelationShips 
+            // Relationships  
             builder.HasOne(P => P.Brand)
-                .WithMany()// Brand With Many Product 
-                .HasForeignKey(p => p.BrandId)
+                .WithMany()
+                .HasForeignKey(P => P.BrandId)
                 .OnDelete(DeleteBehavior.SetNull);
 
             builder.HasOne(P => P.Category)
-             .WithMany()// Category With Many Product 
-             .HasForeignKey(p => p.CategoryId)
-             .OnDelete(DeleteBehavior.SetNull);
-
+                .WithMany()
+                .HasForeignKey(P => P.CategoryId)
+                .OnDelete(DeleteBehavior.SetNull);
 
 
 

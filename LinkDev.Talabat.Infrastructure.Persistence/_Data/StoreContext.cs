@@ -5,8 +5,11 @@ namespace LinkDev.Talabat.Infrastructure.Persistence._Data
 {
     public class StoreContext : DbContext
     {
+     
+
         public StoreContext(DbContextOptions<StoreContext> Options) : base(Options)
-        { }
+        {
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());//Get Current Assembly Persistance & Get All Classes that inherit from IEntityTypeConfigurations

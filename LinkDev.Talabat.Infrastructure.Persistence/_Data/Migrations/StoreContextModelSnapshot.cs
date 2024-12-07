@@ -33,7 +33,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence._Data.Migrations
                     b.Property<int?>("BrandId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -99,9 +99,12 @@ namespace LinkDev.Talabat.Infrastructure.Persistence._Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Brands");
                 });
@@ -147,8 +150,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence._Data.Migrations
                     b.HasOne("LinkDev.Talabat.Core.Domain.Entities.Product.ProductCategory", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Brand");
 

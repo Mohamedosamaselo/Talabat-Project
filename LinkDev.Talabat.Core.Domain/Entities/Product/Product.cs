@@ -19,7 +19,7 @@ namespace LinkDev.Talabat.Core.Domain.Entities.Product
 
 
         // RelationShip Between ProductCategory[one] : Product[Many]
-        public int CategoryId { get; set; }                   // ForeignKey ProductCategory Entity . 
+        public int? CategoryId { get; set; }                   // ForeignKey ProductCategory Entity . 
         public virtual ProductCategory? Category { get; set; }//Navigational Property [one] product[one]:Category[Many]
 
 

@@ -1,4 +1,5 @@
-﻿using LinkDev.Talabat.Infrastructure.Persistence._Data;
+﻿using LinkDev.Talabat.Core.Domain.Contracts.Persistence.DbIntializers;
+using LinkDev.Talabat.Infrastructure.Persistence._Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Client;
@@ -10,19 +11,20 @@ namespace LinkDev.Talabat.Infrastructure.Persistence
     public static class DependencyInjection
     {
         // services  : DependencyInjection Container 
-        public static IServiceCollection AddPersistenceService(this IServiceCollection services , IConfiguration configuration)
+        public static IServiceCollection AddPersistenceService(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<StoreContext>((optionsBuilder) =>
             {
                 optionsBuilder.UseSqlServer(configuration.GetConnectionString("StoreContext"));
-            }/*,contextLifetime : ServiceLifetime.Scoped,optionsLifetime : ServiceLifetime.Scoped*/);
+            } /*,contextLifetime:ServiceLifetime.Scoped , optionsLifetime : ServiceLifetime.Scoped*/);
 
+            services.AddScoped(typeof(IStoreContextIntializer), typeof(StoreContextIntializer));// Allow DI To StoreContextIntializer Class 
 
             return services;
 
         }
     }
-   
 
-   
+
+
 }

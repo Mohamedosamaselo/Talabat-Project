@@ -1,9 +1,8 @@
 
 using LinkDev.Talabat.Api.Extentions;
-using LinkDev.Talabat.Core.Domain.Contracts.Persistence.DbIntializers;
+using LinkDev.Talabat.Api.Services;
+using LinkDev.Talabat.Core.Application.Abstraction.Services;
 using LinkDev.Talabat.Infrastructure.Persistence;
-using LinkDev.Talabat.Infrastructure.Persistence._Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace LinkDev.Talabat.Api
 {
@@ -25,6 +24,8 @@ namespace LinkDev.Talabat.Api
 
             webApplicationBuilder.Services.AddPersistenceService(webApplicationBuilder.Configuration);// Configure Service of Persistence Layer 
 
+            webApplicationBuilder.Services.AddHttpContextAccessor();// this Method Register More than Services  
+            webApplicationBuilder.Services.AddScoped(typeof(ILoggedInUserService) ,typeof(LoggedInUserServices));
 
             #endregion
 

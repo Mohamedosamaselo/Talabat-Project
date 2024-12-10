@@ -8,13 +8,11 @@ using System.Threading.Tasks;
 namespace LinkDev.Talabat.Core.Domain.Contracts.Persistence
 {
     public interface IUnitOfWork : IAsyncDisposable
-    {
-        public IGenericRepository<Product , int> ProductRepository { get;  }
-        public IGenericRepository<ProductBrand , int> ProductBrandRepository { get;  }
-        public IGenericRepository<ProductCategory , int> ProductCategoryRepository { get;  }
+    { 
+        IGenericRepository<TEntity, TKey> GetRepository<TEntity, TKey>()
+            where TEntity : BaseEntity<TKey> where TKey : IEquatable<TKey>;
 
-
-        Task<int> CompleteAsync()
+        Task<int> CompleteAsync();
 
     }
 }

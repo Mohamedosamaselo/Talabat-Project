@@ -1,8 +1,6 @@
 ﻿using LinkDev.Talabat.Core.Application.Abstraction.Services;
-using LinkDev.Talabat.Core.Application.Abstraction.Services.Product;
 using LinkDev.Talabat.Core.Application.Mapping;
 using LinkDev.Talabat.Core.Application.Services;
-using LinkDev.Talabat.Core.Application.Services.Products;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LinkDev.Talabat.Core.Application
@@ -17,7 +15,7 @@ namespace LinkDev.Talabat.Core.Application
             
             services.AddAutoMapper(typeof(MappingProfile));//clr create object from class Mapping Profile Depending on Parameterless Constructor 
 
-            services.AddScoped(typeof(IProductService), typeof(ProductService));
+            //services.AddScoped(typeof(IProductService), typeof(ProductService));// i don't need to ask run time enviroment to register service for DI Container as i make intialization in service Manager 
                 
             services.AddScoped(typeof(IServiceManager) , typeof(ServiceManager));
 

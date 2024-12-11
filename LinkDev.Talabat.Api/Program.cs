@@ -17,15 +17,17 @@ namespace LinkDev.Talabat.Api
 
             #region Configure Services
 
-            webApplicationBuilder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            webApplicationBuilder.Services.AddControllers()
+                                          .AddApplicationPart(typeof(AssembleyInformation).Assembly);
 
+
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             webApplicationBuilder.Services.AddEndpointsApiExplorer().AddSwaggerGen();
 
             webApplicationBuilder.Services.AddPersistenceService(webApplicationBuilder.Configuration);// Configure Service of Persistence Layer 
 
             webApplicationBuilder.Services.AddHttpContextAccessor();// this Method Register More than Services  
-            webApplicationBuilder.Services.AddScoped(typeof(ILoggedInUserService) ,typeof(LoggedInUserServices));
+            webApplicationBuilder.Services.AddScoped(typeof(ILoggedInUserService), typeof(LoggedInUserServices));
 
             #endregion
 

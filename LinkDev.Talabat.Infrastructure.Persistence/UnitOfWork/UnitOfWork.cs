@@ -8,6 +8,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.UnitOfWork
     public class UnitOfWork : IUnitOfWork
     {
         private readonly StoreContext _dbContext;
+        
         private readonly ConcurrentDictionary<string, object> _repositories;// make DataStructure to save object of Repos in it 
 
         public UnitOfWork(StoreContext dbContext)

@@ -1,5 +1,5 @@
 ﻿
-namespace LinkDev.Talabat.Core.Domain.Entities.Product
+namespace LinkDev.Talabat.Core.Domain.Entities.Products
 {
     public class ProductCategory : BaseAuditableEntity<int> 
     {

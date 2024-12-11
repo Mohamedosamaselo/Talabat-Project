@@ -1,4 +1,4 @@
-﻿using LinkDev.Talabat.Core.Domain.Entities.Product;
+﻿using LinkDev.Talabat.Core.Domain.Entities.Products;
 using LinkDev.Talabat.Infrastructure.Persistence._Data.Configurations.Common;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

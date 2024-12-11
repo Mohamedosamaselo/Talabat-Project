@@ -1,6 +1,6 @@
 ﻿
 using LinkDev.Talabat.Core.Domain.Common;
-using LinkDev.Talabat.Core.Domain.Entities.Product;
+using LinkDev.Talabat.Core.Domain.Entities.Products;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence._Data
 {

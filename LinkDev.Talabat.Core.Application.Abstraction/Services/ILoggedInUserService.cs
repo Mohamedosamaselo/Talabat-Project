@@ -8,6 +8,6 @@ namespace LinkDev.Talabat.Core.Application.Abstraction.Services
 {
     public interface ILoggedInUserService
     {
-        public String? UserId { get;}
+        public string? UserId { get; }
     }
 }

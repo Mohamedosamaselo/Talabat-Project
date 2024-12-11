@@ -1,4 +1,5 @@
-﻿using LinkDev.Talabat.Core.Domain.Contracts.Persistence.DbIntializers;
+﻿using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
+using LinkDev.Talabat.Core.Domain.Contracts.Persistence.DbIntializers;
 using LinkDev.Talabat.Infrastructure.Persistence._Data;
 using LinkDev.Talabat.Infrastructure.Persistence._Data.Interceptors;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -23,6 +24,8 @@ namespace LinkDev.Talabat.Infrastructure.Persistence
             services.AddScoped(typeof(IStoreContextIntializer), typeof(StoreContextIntializer));// Allow DI To StoreContextIntializer Class 
 
             services.AddScoped(typeof(ISaveChangesInterceptor), typeof(CustomSaveChangesInterceptor));
+
+            services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork.UnitOfWork));
 
             return services;
 

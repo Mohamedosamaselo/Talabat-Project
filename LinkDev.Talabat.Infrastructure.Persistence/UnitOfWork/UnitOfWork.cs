@@ -5,20 +5,13 @@ using System.Collections.Concurrent;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence.UnitOfWork
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork(StoreContext dbContext) : IUnitOfWork
     {
-        private readonly StoreContext _dbContext;
-        
-        private readonly ConcurrentDictionary<string, object> _repositories;// make DataStructure to save object of Repos in it 
+        private readonly ConcurrentDictionary<string, object> _repositories = new ConcurrentDictionary<string, object>();// make DataStructure to save object of Repos in it 
 
-        public UnitOfWork(StoreContext dbContext)
-        {
-            _dbContext = dbContext;
-            _repositories = new ConcurrentDictionary<string, object>(); // ConcurrentDictionary Specifies with Asyncrouns Code 
-        }
 
-        public Task<int> CompleteAsync() => _dbContext.SaveChangesAsync();
-        public ValueTask DisposeAsync() => _dbContext.DisposeAsync();
+        public Task<int> CompleteAsync() => dbContext.SaveChangesAsync();
+        public ValueTask DisposeAsync() => dbContext.DisposeAsync();
 
         public IGenericRepository<TEntity, TKey> GetRepository<TEntity, TKey>()
             where TEntity : BaseAuditableEntity<TKey>
@@ -39,7 +32,8 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.UnitOfWork
             /// return repository;
 
 
-            return (IGenericRepository<TEntity, TKey>)_repositories.GetOrAdd(typeof(TEntity).Name, new GenericRepository<TEntity, TKey>(_dbContext));
+            return (IGenericRepository<TEntity, TKey>)_repositories.GetOrAdd(typeof(TEntity).Name, new GenericRepository<TEntity, TKey>(dbContext));
+            
             // GetOrAdd Method => Get the Current object[TEntity , TKey] if it exsists  , Add new object[TEntity , TKey] if it doesnot exsists 
        
         }

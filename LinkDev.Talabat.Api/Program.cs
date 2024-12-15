@@ -3,6 +3,7 @@ using LinkDev.Talabat.Api.Extentions;
 using LinkDev.Talabat.Api.Services;
 using LinkDev.Talabat.Core.Application.Abstraction.Services;
 using LinkDev.Talabat.Infrastructure.Persistence;
+using LinkDev.Talabat.Core.Application;
 
 namespace LinkDev.Talabat.Api
 {
@@ -25,9 +26,13 @@ namespace LinkDev.Talabat.Api
             webApplicationBuilder.Services.AddEndpointsApiExplorer().AddSwaggerGen();
 
             webApplicationBuilder.Services.AddPersistenceService(webApplicationBuilder.Configuration);// Configure Service of Persistence Layer 
+            webApplicationBuilder.Services.AddApplicationServices();
+
+
 
             webApplicationBuilder.Services.AddHttpContextAccessor();// this Method Register More than Services  
             webApplicationBuilder.Services.AddScoped(typeof(ILoggedInUserService), typeof(LoggedInUserServices));
+
 
             #endregion
 

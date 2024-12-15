@@ -6,7 +6,7 @@ using AutoMapper;
 
 namespace LinkDev.Talabat.Core.Application.Services.Products
 {
-    internal class ProductService(IUnitOfWork unitOfWork, IMapper mapper) : IProductService
+    public class ProductService(IUnitOfWork unitOfWork, IMapper mapper) : IProductService
     {
 
 

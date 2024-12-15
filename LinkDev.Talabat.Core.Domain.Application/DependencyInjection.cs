@@ -12,7 +12,7 @@ namespace LinkDev.Talabat.Core.Application
             ///services.AddAutoMapper(mapper => mapper.AddProfile(new MappingProfile()));// i create object from class MApping Profile and can send and argument as a parameter if parameterless consructor take any parameters 
             ///services.AddAutoMapper(mapper => mapper.AddProfile<MappingProfile>());// Creating object from class mapping profile using parameterless constructor
             ///services.AddAutoMapper(typeof(AssemblyInformation).Assembly);// take assembly and take any class that inherit from class MappingProfile
-            
+                
             services.AddAutoMapper(typeof(MappingProfile));//clr create object from class Mapping Profile Depending on Parameterless Constructor 
 
             //services.AddScoped(typeof(IProductService), typeof(ProductService));// i don't need to ask run time enviroment to register service for DI Container as i make intialization in service Manager 

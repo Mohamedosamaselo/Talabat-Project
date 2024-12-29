@@ -1,5 +1,8 @@
-﻿using LinkDev.Talabat.Core.Domain.Contracts.Persistence.DbIntializers;
+﻿using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
+using LinkDev.Talabat.Core.Domain.Contracts.Persistence.DbIntializers;
 using LinkDev.Talabat.Infrastructure.Persistence._Data;
+using LinkDev.Talabat.Infrastructure.Persistence._Data.Interceptors;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Client;
@@ -15,10 +18,16 @@ namespace LinkDev.Talabat.Infrastructure.Persistence
         {
             services.AddDbContext<StoreContext>((optionsBuilder) =>
             {
-                optionsBuilder.UseSqlServer(configuration.GetConnectionString("StoreContext"));
+                optionsBuilder
+                .UseLazyLoadingProxies()
+                .UseSqlServer(configuration.GetConnectionString("StoreContext"));
             } /*,contextLifetime:ServiceLifetime.Scoped , optionsLifetime : ServiceLifetime.Scoped*/);
 
             services.AddScoped(typeof(IStoreContextIntializer), typeof(StoreContextIntializer));// Allow DI To StoreContextIntializer Class 
+
+            services.AddScoped(typeof(ISaveChangesInterceptor), typeof(CustomSaveChangesInterceptor));
+
+            services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork.UnitOfWork));
 
             return services;
 

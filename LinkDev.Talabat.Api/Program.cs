@@ -1,9 +1,9 @@
 
 using LinkDev.Talabat.Api.Extentions;
-using LinkDev.Talabat.Core.Domain.Contracts.Persistence.DbIntializers;
+using LinkDev.Talabat.Api.Services;
+using LinkDev.Talabat.Core.Application.Abstraction.Services;
 using LinkDev.Talabat.Infrastructure.Persistence;
-using LinkDev.Talabat.Infrastructure.Persistence._Data;
-using Microsoft.EntityFrameworkCore;
+using LinkDev.Talabat.Core.Application;
 
 namespace LinkDev.Talabat.Api
 {
@@ -18,17 +18,26 @@ namespace LinkDev.Talabat.Api
 
             #region Configure Services
 
-            webApplicationBuilder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            webApplicationBuilder.Services.AddControllers()
+                                          .AddApplicationPart(typeof(AssembleyInformation).Assembly);
 
+
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             webApplicationBuilder.Services.AddEndpointsApiExplorer().AddSwaggerGen();
 
             webApplicationBuilder.Services.AddPersistenceService(webApplicationBuilder.Configuration);// Configure Service of Persistence Layer 
+            webApplicationBuilder.Services.AddApplicationServices();
 
+
+
+            webApplicationBuilder.Services.AddHttpContextAccessor();// this Method Register More than Services  
+            webApplicationBuilder.Services.AddScoped(typeof(ILoggedInUserService), typeof(LoggedInUserServices));
 
             #endregion
 
             var app = webApplicationBuilder.Build();
+
+
 
             #region Databases Initializations 
 
@@ -51,6 +60,7 @@ namespace LinkDev.Talabat.Api
 
             app.UseAuthorization();
 
+            app.UseStaticFiles();
 
             app.MapControllers();
 

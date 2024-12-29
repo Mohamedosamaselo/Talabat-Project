@@ -1,10 +1,10 @@
-﻿using LinkDev.Talabat.Core.Domain.Entities.Product;
+﻿using LinkDev.Talabat.Core.Domain.Entities.Products;
 using LinkDev.Talabat.Infrastructure.Persistence._Data.Configurations.Common;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence._Data.Configurations.Products
 {
-    internal class ProductConfigurations : BaseEntityConfiguration<Product, int>
+    internal class ProductConfigurations : BaseAuditableEntityConfiguration<Product, int>
     {
         public override void Configure(EntityTypeBuilder<Product> builder)
         {

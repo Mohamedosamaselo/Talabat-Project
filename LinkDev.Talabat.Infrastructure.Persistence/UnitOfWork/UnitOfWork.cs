@@ -1,26 +1,21 @@
 ﻿using LinkDev.Talabat.Core.Domain.Common;
 using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Infrastructure.Persistence._Data;
+using LinkDev.Talabat.Infrastructure.Persistence.GenericRepositories;
 using System.Collections.Concurrent;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence.UnitOfWork
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork(StoreContext dbContext) : IUnitOfWork
     {
-        private readonly StoreContext _dbContext;
-        private readonly ConcurrentDictionary<string, object> _repositories;
+        private readonly ConcurrentDictionary<string, object> _repositories = new ();// make DataStructure to save object of Repos in it 
 
-        public UnitOfWork(StoreContext dbContext)
-        {
-            _dbContext = dbContext;
-            _repositories = new ConcurrentDictionary<string, object>(); // ConcurrentDictionary Specifies with Asyncrouns Code 
-        }
 
-        public Task<int> CompleteAsync() => _dbContext.SaveChangesAsync();
-        public ValueTask DisposeAsync() => _dbContext.DisposeAsync();
+        public Task<int> CompleteAsync() => dbContext.SaveChangesAsync();
+        public ValueTask DisposeAsync() => dbContext.DisposeAsync();
 
         public IGenericRepository<TEntity, TKey> GetRepository<TEntity, TKey>()
-            where TEntity : BaseEntity<TKey>
+            where TEntity : BaseAuditableEntity<TKey>
             where TKey : IEquatable<TKey>
         {
 
@@ -38,7 +33,8 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.UnitOfWork
             /// return repository;
 
 
-            return (IGenericRepository<TEntity, TKey>)_repositories.GetOrAdd(typeof(TEntity).Name, new GenericRepository<TEntity, TKey>(_dbContext));
+            return (IGenericRepository<TEntity, TKey>)_repositories.GetOrAdd(typeof(TEntity).Name, new GenericRepository<TEntity, TKey>(dbContext));
+            
             // GetOrAdd Method => Get the Current object[TEntity , TKey] if it exsists  , Add new object[TEntity , TKey] if it doesnot exsists 
        
         }

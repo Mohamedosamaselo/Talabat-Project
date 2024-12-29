@@ -33,10 +33,11 @@ namespace LinkDev.Talabat.Api
             webApplicationBuilder.Services.AddHttpContextAccessor();// this Method Register More than Services  
             webApplicationBuilder.Services.AddScoped(typeof(ILoggedInUserService), typeof(LoggedInUserServices));
 
-
             #endregion
 
             var app = webApplicationBuilder.Build();
+
+
 
             #region Databases Initializations 
 
@@ -59,6 +60,7 @@ namespace LinkDev.Talabat.Api
 
             app.UseAuthorization();
 
+            app.UseStaticFiles();
 
             app.MapControllers();
 

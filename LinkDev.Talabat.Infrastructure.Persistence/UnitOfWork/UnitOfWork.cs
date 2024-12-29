@@ -1,13 +1,14 @@
 ﻿using LinkDev.Talabat.Core.Domain.Common;
 using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Infrastructure.Persistence._Data;
+using LinkDev.Talabat.Infrastructure.Persistence.GenericRepositories;
 using System.Collections.Concurrent;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence.UnitOfWork
 {
     public class UnitOfWork(StoreContext dbContext) : IUnitOfWork
     {
-        private readonly ConcurrentDictionary<string, object> _repositories = new ConcurrentDictionary<string, object>();// make DataStructure to save object of Repos in it 
+        private readonly ConcurrentDictionary<string, object> _repositories = new ();// make DataStructure to save object of Repos in it 
 
 
         public Task<int> CompleteAsync() => dbContext.SaveChangesAsync();

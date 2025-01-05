@@ -4,26 +4,53 @@ using System.Linq.Expressions;
 namespace LinkDev.Talabat.Core.Domain.Specifications
 {
     public abstract class BaseSpecifications<TEntity, TKey> : ISpecifications<TEntity, TKey>
-                                                                                        where TEntity : BaseEntity<TKey>
-                                                                                        where TKey : IEquatable<TKey>
+                                                                                             where TEntity : BaseEntity<TKey>
+                                                                                              where TKey : IEquatable<TKey>
     {
-        // Automatic property Cimpiler will generate backingGround Field with Get; set; 
-        public Expression<Func<TEntity ,bool>>? Criteria { get; set; } = null;
-        public List<Expression<Func<TEntity, object>>> Includes { get; set; } = new () ;
+        // Automatic property Compiler will generate backingGround Field with Get; set; 
+        public Expression<Func<TEntity, bool>>? Criteria { get; set; } = null;
+        public List<Expression<Func<TEntity, object>>> Includes { get; set; } = new();
+        
+        public Expression<Func<TEntity, object>>? OrderBy { get; set; } = null;
+        public Expression<Func<TEntity, object>>? OrderByDesc { get; set; } = null;
+       
+        public int Skip { get; set; }
+        public int Take { get; set; }
+        public bool IsPaginationEnabled { get; set; }
 
 
-
-
-        // this ParameterLess constructor will use to create object from baseSpecification object that used to get All Entities 
-        public BaseSpecifications()
+        //Methods
+        protected BaseSpecifications()
         {
-            //Criteria = null;
+        }
+        // this constructor will use to create object from baseSpecification object that used to get All Entities 
+        protected BaseSpecifications(Expression<Func<TEntity, bool>> criteriaExpression)
+        {
+            Criteria = criteriaExpression;
             //Includes = new List<Expression<Func<TEntity, object>>>();
         }
-        public BaseSpecifications(TKey id)
+        protected BaseSpecifications(TKey id)
         {
             Criteria = E => E.Id.Equals(id);      // p => p.Id.equals(1); 
             //Includes = new List<Expression<Func<TEntity, object>>>();
         }
+        private protected virtual void AddOrderBy(Expression<Func<TEntity, object>> orderByExpression)
+        {
+            OrderBy = orderByExpression;
+        }
+        private protected virtual void AddOrderByDesc(Expression<Func<TEntity, object>> orderByExpressionDesc)
+        {
+            OrderBy = orderByExpressionDesc;
+        }
+        private protected virtual void AddIncludes()
+        {
+        }
+        private protected void ApplyPagination(int skip, int take)
+        {
+            IsPaginationEnabled = true;
+            Skip = skip;
+            Take = take;
+        }
     }
 }
+

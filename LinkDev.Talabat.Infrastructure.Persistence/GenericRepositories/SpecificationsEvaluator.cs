@@ -12,9 +12,21 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.GenericRepositories
         public static IQueryable<TEntity> GetQuery(IQueryable<TEntity> inputQuery, ISpecifications<TEntity, TKey> Spec)
         {
             var Query = inputQuery;                  // _dbContext.Set<TEntity>()
+           
             if (Spec.Criteria is not null)           // p => p.Id.Equals(1);
                 Query = Query.Where(Spec.Criteria);
-            /// query =  _dbContext.Set<TEntity>().Where(p => p.Id.Equals(1))
+                                                     // query =  _dbContext.Set<TEntity>().Where(p => p.Id.Equals(1))
+            
+            if(Spec.OrderByDesc is not null)
+                Query = Query.OrderByDescending(Spec.OrderByDesc);
+
+            else if (Spec.OrderBy is not null)
+                Query = Query.OrderBy(Spec.OrderBy);
+            
+            if(Spec.IsPaginationEnabled)            // Apply Pagination 
+                Query = Query.Skip(Spec.Skip).Take(Spec.Take);
+
+
             /// include expression
             /// 1. p => p.Brand
             /// 2. P => P.Category 
@@ -25,6 +37,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.GenericRepositories
             /// _dbContext.Set<TEntity>().Where(P => P.Id.Equals()).include(P => P.Brand).include( p => p.category ) ; 
 
             return Query;
+
         }
     }
 }

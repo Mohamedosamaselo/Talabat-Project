@@ -9,8 +9,9 @@
 
 
         Task<TEntity?> GetByIdAsync(TKey id);
-
         Task<TEntity?> GetByIdWithSpecAsync(ISpecifications<TEntity, TKey> spec);
+
+        Task<int> GetCountAsync(ISpecifications<TEntity, TKey> spec);
 
 
         Task AddAsync(TEntity entity);

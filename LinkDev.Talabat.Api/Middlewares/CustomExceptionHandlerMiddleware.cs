@@ -28,8 +28,16 @@ namespace LinkDev.Talabat.Api.Middlewares
                 // Logic Executed with the Requset
 
                 await _next(httpContext);// Calling Delegate then Send Request 
-
+                
                 // Logic Executed with the Requset
+               
+                //if (httpContext.Response.StatusCode == (int)HttpStatusCode.NotFound)
+                //{
+                //    var response = new ApiResponse((int)HttpStatusCode.NotFound, $"the Requested EndPoint: {httpContext.Request.Path} is not Found");
+                //    await httpContext.Response.WriteAsync(response.ToString());
+                //};
+
+
             }
             catch (Exception ex)
             {
@@ -51,7 +59,6 @@ namespace LinkDev.Talabat.Api.Middlewares
                         // Development Mode
                         if (_environment.IsDevelopment())
                         {
-
                             _logger.LogError(ex, ex.Message);
                             response = new ApiExceptionResponse((int)HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace?.ToString());
                         }

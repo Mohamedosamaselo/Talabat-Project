@@ -88,6 +88,8 @@ namespace LinkDev.Talabat.Api
 
             app.UseMiddleware<CustomExceptionHandlerMiddleware>();// Calling Custom MiddleWare 
 
+           
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -97,6 +99,8 @@ namespace LinkDev.Talabat.Api
 
                 //app.UseDeveloperExceptionPage();// .Net 5 by default it has been Used to show exceptionPage ;
             }
+
+            app.UseStatusCodePagesWithReExecute("/Errors/{0}");
 
             app.UseHttpsRedirection();
 

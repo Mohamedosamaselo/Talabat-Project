@@ -1,4 +1,6 @@
-﻿namespace LinkDev.Talabat.Api.Controllers.Errors
+﻿using System.Text.Json;
+
+namespace LinkDev.Talabat.Api.Controllers.Errors
 {
     public class ApiResponse
     {
@@ -21,6 +23,11 @@
                 500 => "Error leads t dark side",
                 _ => null
             };
+
+
         }
+
+        public override string ToString() => JsonSerializer.Serialize(this , new JsonSerializerOptions() {PropertyNamingPolicy = JsonNamingPolicy.CamelCase});
+        
     }
 }

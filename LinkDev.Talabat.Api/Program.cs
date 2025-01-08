@@ -7,6 +7,7 @@ using LinkDev.Talabat.Core.Application;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Validations;
 using LinkDev.Talabat.Api.Controllers.Errors;
+using LinkDev.Talabat.Api.Middlewares;
 
 namespace LinkDev.Talabat.Api
 {
@@ -77,23 +78,24 @@ namespace LinkDev.Talabat.Api
 
             var app = webApplicationBuilder.Build();
 
-
-
             #region Databases Initializations 
 
             await app.InitializeStoreContextAsync();
 
             #endregion
 
-
             #region Configure Kestrell MiddleWare
 
+            app.UseMiddleware<CustomExceptionHandlerMiddleware>();// Calling Custom MiddleWare 
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
+
                 app.UseSwagger();
                 app.UseSwaggerUI();
+
+                //app.UseDeveloperExceptionPage();// .Net 5 by default it has been Used to show exceptionPage ;
             }
 
             app.UseHttpsRedirection();

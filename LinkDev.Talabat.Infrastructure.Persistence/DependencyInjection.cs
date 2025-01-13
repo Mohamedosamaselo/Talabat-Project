@@ -5,8 +5,7 @@ using LinkDev.Talabat.Infrastructure.Persistence._Data.Interceptors;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Identity.Client;
-using System.Runtime.CompilerServices;
+using StackExchange.Redis;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence
 {

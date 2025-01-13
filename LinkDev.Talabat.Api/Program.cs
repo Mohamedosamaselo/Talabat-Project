@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Validations;
 using LinkDev.Talabat.Api.Controllers.Errors;
 using LinkDev.Talabat.Api.Middlewares;
+using LinkDev.Talabat.Infrastructure;
 
 namespace LinkDev.Talabat.Api
 {
@@ -67,6 +68,7 @@ namespace LinkDev.Talabat.Api
             webApplicationBuilder.Services.AddEndpointsApiExplorer().AddSwaggerGen();
 
             webApplicationBuilder.Services.AddPersistenceService(webApplicationBuilder.Configuration);// Configure Service of Persistence Layer 
+            webApplicationBuilder.Services.AddInfrastructureService(webApplicationBuilder.Configuration);// Configure Service of Persistence Layer 
             webApplicationBuilder.Services.AddApplicationServices();
 
 

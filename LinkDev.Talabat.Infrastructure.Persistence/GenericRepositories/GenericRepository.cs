@@ -49,12 +49,12 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.GenericRepositories
 
 
         #region Helpers Method
-        private IQueryable<TEntity> ApplySpecifications(ISpecifications<TEntity , TKey> specs)
+        private IQueryable<TEntity> ApplySpecifications(ISpecifications<TEntity, TKey> specs)
         {
             return SpecificationsEvaluator<TEntity, TKey>.GetQuery(_dbContext.Set<TEntity>(), specs);
         }
 
-      
+
         #endregion
 
     }

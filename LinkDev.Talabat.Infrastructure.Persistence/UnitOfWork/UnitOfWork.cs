@@ -8,18 +8,17 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.UnitOfWork
 {
     public class UnitOfWork(StoreContext dbContext) : IUnitOfWork
     {
-        private readonly ConcurrentDictionary<string, object> _repositories = new ();// make DataStructure to save object of Repos in it 
+        // make DataStructure to save object of Repos in it 
+        // ConcurrentDictionary is more threadSafe 
+        private readonly ConcurrentDictionary<string, object> _repositories = new ConcurrentDictionary<string, object> ();
 
-
-        public Task<int> CompleteAsync() => dbContext.SaveChangesAsync();
-        public ValueTask DisposeAsync() => dbContext.DisposeAsync();
-
+        // implementation of UOfWork by lazy intialization 
         public IGenericRepository<TEntity, TKey> GetRepository<TEntity, TKey>()
             where TEntity : BaseAuditableEntity<TKey>
             where TKey : IEquatable<TKey>
         {
-
-            //return new GenericRepository<TEntity, TKey>(_dbContext); // But We have an issue here [if we get the repo of the same entity more than once we have more than one instance of GenericRepo So We can create the object of Generic Repo of the entity then we save it in DataStructure Like Dictionary 3l4an lw 27tago mara tanya adelo the same object ]
+            // return new GenericRepository<TEntity, TKey>(_dbContext); 
+            // But We have an issue here [if we get the repo of the same entity more than once we have more than one instance of GenericRepo So We can create the object of Generic Repo of the entity then we save it in DataStructure Like Dictionary 3l4an lw 27tago mara tanya adelo the same object ]
 
             /// var TypeName = typeof(TEntity).Name; // Product[Key]
             /// 
@@ -29,14 +28,15 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.UnitOfWork
             /// var repository = new GenericRepository<TEntity, TKey>(_dbContext); // Else Create new Repo
             /// _repositories.TryAdd(TypeName, repository); // Save Repo in Dictionary 3l4an lw talbo tany adelo nafs l object 
             /// 
-            /// 
             /// return repository;
 
-
+            // GetOrAdd Method => Get the Current object[TEntity,TKey] if it exsists,Add new object[TEntity , TKey] if it doesnot exsists 
             return (IGenericRepository<TEntity, TKey>)_repositories.GetOrAdd(typeof(TEntity).Name, new GenericRepository<TEntity, TKey>(dbContext));
             
-            // GetOrAdd Method => Get the Current object[TEntity , TKey] if it exsists  , Add new object[TEntity , TKey] if it doesnot exsists 
-       
         }
+
+        public Task<int> CompleteAsync() => dbContext.SaveChangesAsync();
+        public ValueTask DisposeAsync() => dbContext.DisposeAsync();
+
     }
 }

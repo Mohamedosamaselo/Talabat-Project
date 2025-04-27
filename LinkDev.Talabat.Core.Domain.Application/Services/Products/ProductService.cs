@@ -40,8 +40,6 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
             return productToReturn;
         }
 
-
-
         public async Task<IEnumerable<BrandDto>> GetBrandAsync()
         {
             var brands = await unitOfWork.GetRepository<ProductBrand, int>().GetAllAsync();

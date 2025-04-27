@@ -2,7 +2,7 @@
 using LinkDev.Talabat.Api.Controllers.Errors;
 using LinkDev.Talabat.Core.Application.Abstraction.Models.Product;
 using LinkDev.Talabat.Core.Application.Abstraction.Services;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc; 
 
 namespace LinkDev.Talabat.Api.Controllers.Controllers.Products
 {

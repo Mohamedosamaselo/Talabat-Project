@@ -6,7 +6,7 @@ namespace LinkDev.Talabat.Api.Extentions
     {
         public static async Task<WebApplication> InitializeStoreContextAsync(this WebApplication app)
         {
-            using var scope = app.Services.CreateAsyncScope();                       // 1.Create Scoope
+            using var scope = app.Services.CreateAsyncScope();                                  // 1.Create Scoope
            
             var services = scope.ServiceProvider;                                               // 2.resolve any dependancy from the Request  
 
@@ -18,7 +18,7 @@ namespace LinkDev.Talabat.Api.Extentions
 
             try
             {
-                await storeContextIntializer.InitializeAsync(); // UpdateDatabase [Apply Any Pending Migrations] 
+                await storeContextIntializer.UpdateDatabaseAsync(); // UpdateDatabase [Apply Any Pending Migrations] 
                 await storeContextIntializer.SeedAsync();       // DataSeeding
             }
             catch (Exception ex)

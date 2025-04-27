@@ -5,8 +5,6 @@ using LinkDev.Talabat.Core.Application.Abstraction.Services.Product;
 using LinkDev.Talabat.Core.Application.Services.Basket;
 using LinkDev.Talabat.Core.Application.Services.Products;
 using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace LinkDev.Talabat.Core.Application.Services
 {
@@ -23,7 +21,8 @@ namespace LinkDev.Talabat.Core.Application.Services
             
             _mapper = mapper;
             
-            _productService = new Lazy<IProductService>(() => new ProductService(_unitOfWork, _mapper));
+            // lazy initialization 
+            _productService = new Lazy<IProductService>(() => new ProductService(_unitOfWork, _mapper)); 
         
             _basketService = new Lazy<IBasketService>(() => new BasketService(basketRepository, mapper));
         

@@ -5,7 +5,7 @@ namespace LinkDev.Talabat.Core.Domain.Specifications.Products
 {
     public class ProductWithCategoryandBrandSpecifications : BaseSpecifications<Product, int>
     {
-        public ProductWithCategoryandBrandSpecifications(string? Sort, int? brandId, int? categoryId, int pageSize, int pageIndex , string? search)
+        public ProductWithCategoryandBrandSpecifications(string? Sort, int? brandId, int? categoryId, int pageSize, int pageIndex, string? search)
                             : base(
                                     p =>
                                         (string.IsNullOrEmpty(search) || p.NormalizedName.Contains(search))
@@ -43,7 +43,9 @@ namespace LinkDev.Talabat.Core.Domain.Specifications.Products
                                                                       // pageIndex = 3   => 0 1 2 3 
         }
 
-        // the Specification Object that created via this Constructor is used for building the query that will get Specific Product by Id .
+
+
+        // the Specification Object that created via this Constructor is used for building the query that will get Specific Product .
         public ProductWithCategoryandBrandSpecifications(int id) : base(id)
         {
             AddIncludes();
@@ -53,9 +55,8 @@ namespace LinkDev.Talabat.Core.Domain.Specifications.Products
         {
             base.AddIncludes();
 
-            Includes.Add(p => p.Brand!);
-            Includes.Add(p => p.Category!);
-
+            IncludeExpressions.Add(p => p.Brand!);
+            IncludeExpressions.Add(p => p.Category!);
         }
 
     }

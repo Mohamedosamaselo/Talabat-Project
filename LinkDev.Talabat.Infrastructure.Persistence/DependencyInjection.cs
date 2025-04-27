@@ -15,12 +15,13 @@ namespace LinkDev.Talabat.Infrastructure.Persistence
         // services  : DependencyInjection Container 
         public static IServiceCollection AddPersistenceService(this IServiceCollection services, IConfiguration configuration)
         {
+          
             services.AddDbContext<StoreContext>((optionsBuilder) =>
             {
-                optionsBuilder
-                .UseLazyLoadingProxies()
-                .UseSqlServer(configuration.GetConnectionString("StoreContext"));
-            } /*,contextLifetime:ServiceLifetime.Scoped , optionsLifetime : ServiceLifetime.Scoped*/);
+                optionsBuilder.UseLazyLoadingProxies() // to allow Lazyloading Mode 
+                              .UseSqlServer(configuration.GetConnectionString("StoreContext"));
+            } /*,contextLifetime:ServiceLifetime.Scoped , optionsLifetime : ServiceLifetime.Scoped*/);// bydefault servicelife time is scooped
+
 
             services.AddScoped(typeof(IStoreContextIntializer), typeof(StoreContextIntializer));// Allow DI To StoreContextIntializer Class 
 
@@ -28,8 +29,8 @@ namespace LinkDev.Talabat.Infrastructure.Persistence
 
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork.UnitOfWork));
 
-            return services;
 
+            return services;
         }
     }
 

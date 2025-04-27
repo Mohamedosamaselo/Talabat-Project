@@ -1,15 +1,13 @@
 ﻿using LinkDev.Talabat.Core.Domain.Common;
 using LinkDev.Talabat.Core.Domain.Contracts;
 using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
-using LinkDev.Talabat.Core.Domain.Entities.Products;
 using LinkDev.Talabat.Infrastructure.Persistence._Data;
-using Microsoft.Identity.Client;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence.GenericRepositories
 {
     internal class GenericRepository<TEntity, TKey>(StoreContext _dbContext) : IGenericRepository<TEntity, TKey>
-                                                                                 where TEntity : BaseAuditableEntity<TKey>
-                                                                                 where TKey : IEquatable<TKey>
+         where TEntity : BaseAuditableEntity<TKey>
+         where TKey : IEquatable<TKey>
     {
 
 
@@ -23,7 +21,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.GenericRepositories
         }
         public async Task<IEnumerable<TEntity>> GetAllWithSpecAsync(ISpecifications<TEntity, TKey> spec, bool WithTracking = true)
         {
-            //return await SpecificationsEvaluator<TEntity, TKey>.GetQuery(_dbContext.Set<TEntity>(), spec).ToListAsync();
+            //return await SpecificationsEvaluator<TEntity, TKey>.GetQuery( _dbContext.Set<TEntity>(), spec).ToListAsync();
             return await ApplySpecifications(spec).ToListAsync();
         }
 

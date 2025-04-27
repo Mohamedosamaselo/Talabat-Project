@@ -27,9 +27,10 @@ namespace LinkDev.Talabat.Infrastructure.Persistence._Data.Interceptors
         {
             if (dbContext is null)
                 return;
-            
-            foreach (var entry in dbContext.ChangeTracker.Entries<BaseAuditableEntity<int>>()
-                .Where(Entity => Entity.State is EntityState.Added or EntityState.Modified))
+            // problem [BaseAuditableEntity<int>] 
+            foreach ( var entry in dbContext.ChangeTracker.Entries<BaseAuditableEntity<int>>()
+                      .Where(Entity => Entity.State is EntityState.Added or EntityState.Modified)
+                    )
             {
                 if (entry.State is EntityState.Added)
                 {

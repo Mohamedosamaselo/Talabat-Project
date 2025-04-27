@@ -8,7 +8,7 @@ namespace LinkDev.Talabat.Core.Domain.Contracts
         
 
         public Expression<Func<TEntity, bool>>? Criteria { get; set; }          // maybe Equalls Null When I Get All Entities 
-        public List<Expression<Func<TEntity, object>>> Includes { get; set; }
+        public List<Expression<Func<TEntity, object>>> IncludeExpressions { get; set; }
 
         // Sorting the Products  
         public Expression<Func<TEntity ,object>>? OrderBy { get; set; }

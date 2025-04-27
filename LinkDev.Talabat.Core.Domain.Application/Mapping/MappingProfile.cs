@@ -12,14 +12,13 @@ namespace LinkDev.Talabat.Core.Application.Mapping
         public MappingProfile()
         {
             CreateMap<Product, ProductToReturnDto>()
-                .ForMember(d => d.Brand, O => O.MapFrom(src => src.Brand!.Name))
+                .ForMember(d => d.Brand, O => O.MapFrom(src => src.Brand!.Name)) // Destenation Member  , Action<IMemeberConfiguration> => mapfrom (srcMemberPath)
                 .ForMember(d => d.Category, O => O.MapFrom(src => src.Category!.Name))
                 //.ForMember(d => d.PictureUrl , o => o.MapFrom(s => $"{"https://localhost:7163"}{s.PictureUrl}"))
                 .ForMember(d => d.PictureUrl, O => O.MapFrom<ProductPictureUrlResolver>());
 
 
-
-            CreateMap<ProductBrand, BrandDto>();
+            CreateMap<ProductBrand, BrandDto>();// map from ProductBrand to BrandDto 
 
             CreateMap<ProductCategory, CategoryDto>();
 

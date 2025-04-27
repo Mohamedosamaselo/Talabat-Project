@@ -2,8 +2,10 @@
 {
     public interface IStoreContextIntializer
     {
-        Task InitializeAsync();
-        Task SeedAsync();
+        Task UpdateDatabaseAsync(); //To Update Database 
+
+        Task SeedAsync(); // Seed
+    
     }
 
 }

@@ -15,7 +15,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence._Data
         public StoreContext(DbContextOptions<StoreContext> Options) : base(Options){ }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());//Get Current Assembly Persistance & Get All Classes that inherit from IEntityTypeConfigurations
+            // modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());//Get Current Assembly Persistance & Get All Classes that inherit from IEntityTypeConfigurations interface
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AssemblyInformation).Assembly);// Get persistance layer assembly reference by AssemblyInformation Class [Class that get All Assembly References from it ]
         }
